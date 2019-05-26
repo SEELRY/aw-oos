@@ -8,15 +8,38 @@ import About from './components/about/About'
 import Login from './components/Login'
 import Register from './components/Register'
 
+//二级路由
+import Contact from "./components/about/Contact"
+import Delivery from "./components/about/Delivery"
+import History from "./components/about/History"
+import OrderingGuide from "./components/about/OrderingGuide"
+
+//三级路由
+import Phone from "./components/about/contact/Phone"
+import personName from "./components/about/contact/PersonName"
+
 Vue.use(VueRouter)
 
 const routes = [
-  {path:'/',component:Home},
-  {path:'/menu',component:Menu},
-  {path:'/admin',component:Admin},
-  {path:'/about',component:About},
-  {path:'/login',component:Login},
-  {path:'/register',component:Register}
+  {path:'/',name:"homeLink",component:Home},
+  { path: '/menu', name: "menuLink",component:Menu},
+  { path: '/admin', name: "adminLink",component:Admin},
+
+
+  { path: '/about', name: "aboutLink",redirect:"/contact",component:About,children:[
+    {path:'/contact',name:"contactLink",redirect:"/personname",component:Contact,children:[
+      {path:'/phone',name:"phoneNumber",component:Phone},
+      {path:'/personname',name:"personName",component:personName}
+    ]},
+    {path:'/delivery',name:"deliveryLink",component:Delivery},
+    {path:'/history',name:"historyLink",component:History},
+    {path:'/OrderingGuide',name:"orderingGuideLink",component:OrderingGuide}
+  ]},
+
+
+  { path: '/login', name: "loginLink",component:Login},
+  { path: '/register', name: "registerLink",component:Register},
+  {path:'*',redirect:'/'}
 ]
 
 const router = new VueRouter({
