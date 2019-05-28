@@ -16,12 +16,12 @@ export default {
     //         alert("Hello " + vm.name);
     //     })
     // },
-    beforeRouteLeave:(to,from,next)=>{
-        if(confirm("确定离开吗？") == true){
-            next();
-        }else{
-            next(false);
-        }
-    }
+    // beforeRouteLeave:(to,from,next)=>{
+    //     if(confirm("确定离开吗？") == true){
+    //         next();
+    //     }else{
+    //         next(false);
+    //     }
+    // }
 }
 </script>
