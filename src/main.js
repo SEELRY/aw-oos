@@ -2,9 +2,11 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import App from './App.vue'
 import {routes} from './routes'
+import axios from 'axios'
 
 Vue.use(VueRouter)
 
+axios.defaults.baseURL = 'https://pizza-69e10.firebaseio.com/'
 
 
 const router = new VueRouter({
