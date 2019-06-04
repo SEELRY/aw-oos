@@ -26,27 +26,33 @@
 
         <!-- 购物车 -->
         <div class="col-sm-12 col-md-4">
-            <table class="table">
-                <thead class="thead-default">
-                    <tr>
-                        <th>数量</th>
-                        <th>种类</th>
-                        <th>价格</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>
-                            <button class="btn btn-sm">-</button>
-                            <span>1</span>
-                            <button class="btn btn-sm">+</button>
-                        </td>
-                        <td>榴莲9寸</td>
-                        <td>38</td>
-                    </tr>
-                </tbody>
-            </table>
-            <p>总价：</p>
+            <div v-if="baskets.length > 0">
+                <table class="table">
+                    <thead class="thead-default">
+                        <tr>
+                            <th>数量</th>
+                            <th>种类</th>
+                            <th>价格</th>
+                        </tr>
+                    </thead>
+                    <tbody v-for="item in baskets" :key="item.name">
+                        <tr>
+                            <td>
+                                <button @click="decreaseQuantity(item)" class="btn btn-sm">-</button>
+                                <span>{{item.quantity}}</span>
+                                <button @click="increaseQuantity(item)" class="btn btn-sm">+</button>
+                            </td>
+                            <td>{{item.name}}{{item.size}}</td>
+                            <td>{{item.price * item.quantity}}元</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p>总价：</p>
+            </div>
+            <div v-else>
+                {{basketsText}}
+            </div>
+            
             <button class="btn btn-success btn-block">提交</button>
         </div>
     </div>
@@ -57,6 +63,7 @@ export default {
     data(){
         return{
             baskets:[],
+            basketsText:"购物车没有任何商品",
             getMenuItems:{
                 1:{
                     'name':'榴莲pizza',
@@ -102,6 +109,18 @@ export default {
                 price:option.price,
                 quantity:1
             });
+        },
+        decreaseQuantity(item){
+            item.quantity--;
+            if(item.quantity <= 0){
+                this.removeFromBasket(item);
+            }
+        },
+        increaseQuantity(item){
+            item.quantity++;
+        },
+        removeFromBasket(item){
+            this.baskets.splice(this.baskets.indexOf(item),1);
         }
     }
 }
