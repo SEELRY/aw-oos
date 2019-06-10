@@ -14,10 +14,10 @@
                         <th>删除</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody v-for="item in getMenuItems" :key="item.name">
                     <tr>
-                        <td>榴莲pizza</td>
-                        <td><button class="btn btn-outline-danger btn-sm">&times;</button></td>
+                        <td>{{item.name}}</td>
+                        <td><button @click="deleteData(item)" class="btn btn-outline-danger btn-sm">&times;</button></td>
                     </tr>
                 </tbody>
             </table>
@@ -27,8 +27,42 @@
 <script>
 import NewPizza from './NewPizza.vue'
 export default{
+    data(){
+        return {
+            getMenuItems:[]
+        }
+    },
     components:{
         'app-new-pizza':NewPizza
+    },
+    created(){
+        fetch("https://pizza-69e10.firebaseio.com/menu.json")
+        .then(res => {
+            return res.json()
+        })
+        .then(data => {
+            // console.log(data);
+            let menuArray = []
+            for(let key in data){
+                // console.log(key);
+                data[key].id = key
+                menuArray.push(data[key])
+            }
+            this.getMenuItems = menuArray
+        })
+    },
+    methods:{
+        deleteData(item){
+            fetch("https://pizza-69e10.firebaseio.com/menu/"+item.id+"/.json",{
+                method:"DELETE",
+                headers:{
+                    'Content-type':'application/json'
+                }
+            })
+            .then(res => res.json())
+            .then(data => this.$router.push({name:"menuLink"}))
+            .catch(err => console.log(err))
+        }
     }
 }
 
