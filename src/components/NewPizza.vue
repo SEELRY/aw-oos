@@ -40,7 +40,7 @@
             </div>
         </div>
         <div class="form-group row">
-            <button type="button" class="btn btn-success btn-block">添加</button>
+            <button @click="addMenuItem" type="button" class="btn btn-success btn-block">添加</button>
         </div>
     </form>
 </template>
@@ -50,6 +50,39 @@ export default {
         return {
             newPizza:{}
         }
+    },
+    methods:{
+        addMenuItem(){
+            // console.log(this.newPizza);
+            let data={
+                name:this.newPizza.name,
+                description:this.newPizza.description,
+                options:[
+                    {
+                        size:this.newPizza.size1,
+                        price:this.newPizza.price1
+                    },
+                    {
+                        size:this.newPizza.size2,
+                        price:this.newPizza.price2
+                    }
+                ]
+            }
+        }
+
+        //axios vue-resource
+        //es6 fetch
+        fetch("https://pizza-69e10.firebaseio.com/menu.json",{
+            method:"POST",
+            headers:{
+                "Content-type":'application/json'
+            },
+            body:JSON.stringify(data)
+        })
+        // .then(res => console.log(res));
+        .then(res => res.json())
+        .then(data => console.log(data))
+        .catch(err => console.log(err))
     }
 }
 </script>
