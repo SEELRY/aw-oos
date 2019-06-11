@@ -72,18 +72,22 @@ export default {
 
             //axios vue-resource
             //es6 fetch
-            fetch("https://pizza-69e10.firebaseio.com/menu.json",{
-                method:"POST",
-                headers:{
-                    "Content-type":'application/json'
-                },
-                body:JSON.stringify(data)
-            })
-            // .then(res => console.log(res))
-            .then(res => res.json())
-            .then(data => console.log(data))
-            .then(data => this.$router.push({name:"menuLink"}))
-            .catch(err => console.log(err));
+            // fetch("https://pizza-69e10.firebaseio.com/menu.json",{
+            //     method:"POST",
+            //     headers:{
+            //         "Content-type":'application/json'
+            //     },
+            //     body:JSON.stringify(data)
+            // })
+            // // .then(res => console.log(res))
+            // .then(res => res.json())
+            // .then(data => console.log(data))
+            // .then(data => this.$router.push({name:"menuLink"}))
+            // .catch(err => console.log(err));
+
+            //axios
+            this.http.post("menu.json",data)
+                .then(res => this.$router.push({name:"menuLink"}))
 
         }
 

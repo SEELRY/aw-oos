@@ -83,7 +83,9 @@ export default {
     },
     methods:{
         fetchData(){
-            axios.get("menu.json")
+            // axios.get("menu.json")
+            //     .then(res => this.getMenuItems = res.data)
+            this.http.get("menu.json")
                 .then(res => this.getMenuItems = res.data)
         },
         addToBasket(item,option){
