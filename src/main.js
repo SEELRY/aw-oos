@@ -6,6 +6,7 @@ import axios from 'axios'
 
 Vue.use(VueRouter)
 
+//默认跟路径
 axios.defaults.baseURL = 'https://pizza-69e10.firebaseio.com/'
 
 
