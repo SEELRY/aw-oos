@@ -4,6 +4,8 @@ import App from './App.vue'
 import {routes} from './routes'
 import axios from 'axios'
 
+import {store} from './store/store.js'
+
 Vue.use(VueRouter)
 
 //默认跟路径
@@ -46,5 +48,6 @@ const router = new VueRouter({
 new Vue({
   el: '#app',
   router,
+  store,
   render: h => h(App)
 })
