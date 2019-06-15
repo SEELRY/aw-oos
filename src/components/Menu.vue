@@ -10,11 +10,11 @@
                         <th>加入</th>
                     </tr>
                 </thead>
-                <tbody v-for="item in getMenuItems" v-bind:key="item.name">
+                <tbody v-for="item in getMenuItems" :key="item.name">
                     <tr>
                         <td><strong>{{item.name}}</strong></td>
                     </tr>
-                    <tr v-for="option in item.options" v-bind:key="option.size">
+                    <tr v-for="option in item.options" :key="option.size">
                         <td>{{option.size}}</td>
                         <td>{{option.price}}</td>
                         <td><button @click="addToBasket(item,option)" class="btn btn-sm btn-outline-success">+</button></td>
