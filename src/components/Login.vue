@@ -30,6 +30,10 @@ export default {
             password:'',
         }
     },
+    beforeRouteEnter:(to,from,next) => {
+        //this.$store.dispatch("setUser",null)
+        next(vm => vm.$store.dispatch("setUser",null))
+    },
     methods:{
         onSubmit(){
             // console.log("test");
@@ -54,9 +58,11 @@ export default {
                 //判断result长度是否大于0
                 if(result != null && result.length >0){
                     alert("登录成功！");
+                    this.$store.dispatch("setUser",result[0].email);
                     this.$router.push({name:"homeLink"});
                 }else{
                     alert("帐号或密码错误，请核对后输入。");
+                    this.$store.dispatch("setUser",null)
                 }
             })
             

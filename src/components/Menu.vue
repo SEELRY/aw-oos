@@ -70,8 +70,11 @@ export default {
     },
     computed:{
         getMenuItems(){
-            //在vuex中获取数据
-            return this.$store.state.menuItems
+            // //在vuex中获取数据
+            // return this.$store.state.menuItems
+            
+            //通过getters获取数据
+            return this.$store.getters.getMenuItems
         },
         total(){
             let totalCost = 0;
