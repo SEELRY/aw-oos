@@ -47,7 +47,9 @@
                         </tr>
                     </tbody>
                 </table>
-                <p>总价：</p>
+
+                <p>总价：{{total + "RMB"}}</p>
+
             </div>
             <div v-else>
                 {{basketsText}}
@@ -101,14 +103,42 @@ export default {
             }
         }
     },
+    computed:{
+        total(){
+            let totalCost = 0;
+            for(let index in this.baskets){
+                let individualItem = this.baskets[index];
+                totalCost += individualItem.quantity * individualItem.price;
+            }
+            return totalCost;
+        }
+    },
     methods:{
         addToBasket(item,option){
-            this.baskets.push({
+            let basket = {
                 name:item.name,
                 size:option.size,
                 price:option.price,
                 quantity:1
-            });
+            }
+
+            if(this.baskets.length > 0){
+                //过滤
+                let result = this.baskets.filter( (b) => {
+                    return (b.name === item.name && b.price === option.price)
+                });
+
+                if(result != null && result.length >0){
+                    result[0].quantity++
+                }else{
+                    this.baskets.push(basket);
+                }
+
+            }else{
+                this.baskets.push(basket);
+            }
+
+            
         },
         decreaseQuantity(item){
             item.quantity--;
